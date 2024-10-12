@@ -1,0 +1,50 @@
+Alphabet:
+	- letters: Uppercase (A-Z) and lowercase (a-z) letters from the English alphabet.
+	- underline character: _.
+	- decimal digits: 0-9.
+
+Lexic: 
+	a. special symbols
+	- operators: + - * / := < <= = >= <>
+	- separators: [ ] { } : ; space , .
+	- reserved words: array  char  const do else  if int  of program read then var while write
+	
+	b. identifiers (a sequence of letters and digits starting with a letter.)
+	identifier := letter { letter | digit }
+	letter ::= "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
+	digit ::= "0" | "1" | ... | "9"
+
+	c. constants
+	1. integer rule (can be positive or negative integers)
+	no_const ::= [ "+" | "-" ] digit { digit }
+
+	2. character
+	char := "'" (letter | digit) "'"
+
+	3. string
+	string_const ::= '"' char { char } '"'
+	char ::= letter | digit
+
+Syntax:
+a)Sintactical rules:
+    	program ::= "VAR" decllist ";" cmpdstmt "."
+   	decllist ::= declaration | declaration ";" decllist
+	declaration ::= IDENTIFIER ":" type
+      	type1 ::= "BOOLEAN" | "CHAR" | "INTEGER" | "REAL"
+  	arraydecl ::= "ARRAY" "[" nr "]" "OF" type1
+      	type  ::= type1|arraydecl
+   	cmpdstmt ::= "BEGIN" stmtlist "END"
+   	stmtlist ::= stmt | stmt ";" stmtlist
+       	stmt ::= simplstmt | structstmt
+  	simplstmt ::= assignstmt | iostmt
+ 	assignstmt ::= IDENTIFIER ":=" expression
+ 	expression ::= expression "+" term | term
+       	term ::= term "*" factor | factor
+     	factor ::= "(" expression ")" | IDENTIFIER
+     	iostmt ::= "READ" | "WRITE" "(" IDENTIFIER ")"
+ 	structstmt ::= cmpdstmt | ifstmt | whilestmt
+     	ifstmt ::= "IF" condition "THEN" stmt ["ELSE" stmt]
+  	whilestmt ::= "WHILE" condition "DO" stmt
+  	condition ::= expression RELATION expression
+   	RELATION ::= "<" | "<=" | "=" | "<>" | ">=" | ">"
+	

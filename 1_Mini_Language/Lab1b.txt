@@ -1,0 +1,68 @@
+VAR
+    i : INTEGER;
+    j : INTEGER;
+    k : INTEGER;
+    is_prime : BOOLEAN;
+
+BEGIN
+    WRITE("Enter the value of k: ");
+    READ(k);
+
+    i := 2;
+    WHILE i < k DO
+    BEGIN
+        is_prime := TRUE;
+        j := 2;
+
+        WHILE j * j <= i DO
+        BEGIN
+            IF i MOD j = 0 THEN
+            BEGIN
+                is_prime := FALSE;
+                BREAK;
+            END;
+            j := j + 1;
+        END;
+
+        IF is_prime THEN
+        BEGIN
+            WRITE(i);
+            WRITE(" is a prime number.");
+        END;
+
+        i := i + 1;
+    END;
+END
+
+#include <iostream>
+using namespace std;
+
+// Function to check if a number is prime
+bool isPrime(int num) {
+    if (num <= 1)
+        return false;
+    for (int i = 2; i * i <= num; i++) {
+        if (num % i == 0)
+            return false;
+    }
+    return true;
+}
+
+int main() {
+    int k;
+    
+    // Input from the user
+    cout << "Enter the value of k: ";
+    cin >> k;
+
+    // Loop through numbers from 2 to k-1
+    for (int i = 2; i < k; i++) {
+        if (isPrime(i)) {
+            // Print the prime number
+            cout << i << " is a prime number." << endl;
+        }
+    }
+
+    return 0;
+}
+
