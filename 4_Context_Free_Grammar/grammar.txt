@@ -1,47 +1,109 @@
 # Context-Free Grammar for the Custom Language
+# ---------------------------------------------
+# Grammar Notation:
+# - non-terminals: Enclosed in angle brackets, e.g., <program>.
+# - terminals: Represented by strings in quotes, e.g., "int", or explicitly listed (e.g., digits).
+# - production rules: Defined using `->` to separate the non-terminal from its possible productions.
+# - alternatives: Represented using `|`.
 
-# Non-terminals (N)
+# Sections:
+# 1. non-terminals (N): Lists all non-terminal symbols.
+# 2. terminals (Σ): Lists all terminal symbols (tokens).
+# 3. syntactical rules (P): Defines the production rules for the language.
+# 4. start symbol (S): The entry point of the grammar, always <program> in this case.
+#
+# ---------------------------------------------
+
+# non-terminals (N)
 N = {<program>, <declist>, <type>, <bundle>, <declaration>, <stmtlist>, <stmt>, <simplstmt>, <assignstmt>, 
 <iostmt>, <structstmt>, <ifstmt>, <whilestmt>, <forstmt>, <condition>, <relation>, <expression>,
 <term>, <factor>, <constant>, <integer>, <noconst>, <no>, <character>, <string>, <char>, <identifier>, 
 <letter>, <digit>}
 
-# Terminals (Σ)
+# terminals (Σ)
 Σ = {"customgram", ";", "Lights out", "Checkered flag", "int", "char", "string", "bundle", "bool", "[", "]", "of",
     "=", "re", "(", ")", "wr", "begin", "end", "iftry", "then", "elsetry", "while", "do", "for", ":=", "to", "<", "<=", 
     "=", "<>", ">=", ">", "+", "-", "*", "/", "a" | "b" | ... | "z" | "Ă" | "Â" | "Î" | "Ț" | "Ș", "0" | "1" | ... | "9"}
 
-# Syntactical rules (P)
+# syntactical rules (P)
 <program> -> "customgram" <identifier> ";" <declist> "Lights out" <stmtlist> "Checkered flag"
+# defines the main program structure. starts with "customgram", followed by declarations and statements
+
 <declist> -> <declaration> | <declaration> ";" <declist>
+# declaration list 
+
 <type> -> "int" | "char" | "string" | "bundle" | "bool"
+# data types supported in the language
+
 <bundle> -> "bundle" "[" <number_of_elements> "]" "of" <type> <identifier>
+# defines arrays 
+
 <declaration> -> <type> <identifier> | <bundle>
+# vriable declarations, including standard and bundled variables
+
 <stmtlist> -> <stmt> | <stmt> ";" <stmtlist>
+# sequence of one or more statements
+
 <stmt> -> <simplstmt> | <structstmt>
+#statement can be simple (assignments) or structured (if, while)
+
 <simplstmt> -> <assignstmt> | <iostmt>
+# simple statements include assignments
+
 <assignstmt> -> <identifier> "=" <expression>
+# assignment operation where an expression is assigned to a variable
+
 <iostmt> -> "re" "(" <identifier> ")" | "wr" "(" <expression> ")"
+# input and output statements
+
 <structstmt> -> <ifstmt> | <whilestmt> | <forstmt>
+# structured statements 
+
 <ifstmt> -> "iftry" <condition> "then" <stmt> | "iftry" <condition> "then" <stmt> "elsetry" <stmt>
+# conditional statement with  else.
+
 <whilestmt> -> "while" <condition> "do" <stmt>
+# while loop construct
+
 <forstmt> -> "for" <identifier> ":=" <expression> "to" <expression> "do" <stmt>
+# for loop
+
 <condition> -> <expression> <relation> <expression>
+# logical conditions
+
 <relation> -> "<" | "<=" | "=" | "<>" | ">=" | ">"
+# comparisons
+
 <expression> -> <term> "+" <term> | <term> "-" <term>
+#addition or subtraction
+
 <term> -> <factor> "*" <factor> | <factor> "/" <factor>
+# multiplication or division
+
 <factor> -> "(" <expression> ")" | <identifier> | <constant>
+# factors include expressions, variables or constant
+
 <constant> -> <integer> | <character> | <string>
+# constants can be integers, characters or strings
+
 <integer> -> <noconst>
 <noconst> -> "+" <no> | "-" <no> | <no>
 <no> -> <digit> | <digit> <no>
+# rules for defining integers
+
 <character> -> <letter> | <digit>
 <string> -> <char> | <char> <string>
 <char> -> <letter> | <digit>
+# characters and strings
+
 <identifier> -> <letter> | <letter> <identifier_name>
 <identifier_name> -> <letter> | <letter> <identifier_name> | <digit> | <digit> <identifier_name> | <letter> "_" <letter> <identifier_name>
+# identifiers must start with a letter and can include letters, digits or underscores
+
 <letter> -> "a" | "b" | ... | "z" | "Ă" | "Â" | "Î" | "Ț" | "Ș"
 <digit> -> "0" | "1" | ... | "9"
+# definitions for letters and digits.
 
-# Start symbol (S)
+# start symbol (S)
 S = <program>
+# starting point for parsing a program.
