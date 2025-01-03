@@ -1,0 +1,10 @@
+EBNF for Input File (FA.in)
+FA ::= states "\n" alphabet "\n" start_state "\n" final_states "\n" transitions
+states ::= state ("," state)*
+alphabet ::= symbol ("," symbol)*
+start_state ::= state
+final_states ::= state ("," state)*
+transitions ::= transition ("\n" transition)*
+transition ::= state "," symbol "," state
+state ::= letter (letter | digit)*
+symbol ::= printable_character
